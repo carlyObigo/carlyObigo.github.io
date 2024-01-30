@@ -10,10 +10,9 @@
 /// <reference path="../../src/systemsappsnavihmi.ts" />
 /// <reference path="../../src/systemsappssetuphmi.ts" />
 /// <reference path="../../src/systemstelephony.ts" />
-/// <reference path="../../src/systemsappshomehmi.ts" />
 /// <reference path="../../src/systemsbluetooth.ts" />
-/// <reference path="../../src/appsvoicerecognizer.ts" />
 /// <reference path="../../src/appstexttospeech.ts" />
+/// <reference path="../../src/appsvoicerecognizer.ts" />
 'use strict';
 let globalLogger = undefined;
 window.onload = function () {
@@ -68,10 +67,9 @@ window.onload = function () {
     ccOSBox.appendChild(createNavigationBox());
     ccOSBox.appendChild(createSetupHMIBox());
     ccOSBox.appendChild(createTelephonyBox());
-    ccOSBox.appendChild(createHomeHMIBox());
     ccOSBox.appendChild(createBluetoothBox());
-    ccOSBox.appendChild(createVoiceRecognizerBox());
     ccOSBox.appendChild(createTextToSpeechBox());
+    ccOSBox.appendChild(createVoiceRecognizerBox());
     ccOSBox.appendChild(createHeaderBox());
 };
 function createHeaderBox() {
@@ -83,14 +81,6 @@ function createHeaderBox() {
     const setAlert = FormSet.cbSetAlert(toggleBox);
     if (!(ccOS === null || ccOS === void 0 ? void 0 : ccOS.version))
         setAlert('ccOS undefined');
-    const createRefreshBtn = () => {
-        const btn = FormSet.createButton({ className: 'm2 btnReload', innerText: 'reload' });
-        btn.onclick = (evt) => {
-            location.reload();
-        };
-        toggleBox.appendChild(btn);
-    };
-    createRefreshBtn();
     const createBtn = (name) => {
         const btn = FormSet.createButton({ className: 'm2 btnToggle', innerText: name });
         btn.onclick = (evt) => {
@@ -576,43 +566,6 @@ function createSetupHMIBox() {
     // ]] usage of ccOS 'SetupHMI'
     return box;
 }
-function createHomeHMIBox() {
-    const box = createBox('homeHMI');
-    const btnGetInstance = FormSet.createButton({ innerText: 'getInstance', className: 'm5' });
-    box.appendChild(btnGetInstance);
-    const setAlert = FormSet.cbSetAlert(box);
-    // usage of ccOS 'HomeHMI'  [[
-    if (!ccOS.SetupHMI) {
-        setAlert('ccOS.HomeHMI undefined');
-    }
-    const getInstance = () => {
-        var _a;
-        setAlert('');
-        (_a = ccOS.HomeHMI) === null || _a === void 0 ? void 0 : _a.getInstance({ _debugOptions: { logLevel: ccOS.Logger.TRACE, output: globalLogger } }).then(instance => {
-            instance.applyDebugOptions({ logLevel: ccOS.Logger.TRACE, output: globalLogger });
-            btnGetInstance.disabled = true;
-            const methods = [
-                { name: 'launchMainScene' }
-            ];
-            const properties = [
-                { name: 'state', type: 'text', hasSet: false, hasGet: false },
-            ];
-            new TestForm({
-                instance, properties, methods, parentElement: box,
-                onDestroy: () => {
-                    btnGetInstance.disabled = false;
-                }
-            });
-        }).catch(e => {
-            log('failed to get instance:', e);
-            setAlert(e);
-        });
-    };
-    btnGetInstance.onclick = getInstance;
-    // getInstance();
-    // ]] usage of ccOS 'HomeHMI'
-    return box;
-}
 function createNavigationBox() {
     const box = createBox('navigation');
     const btnGetInstance = FormSet.createButton({ innerText: 'getInstance', className: 'm5' });
@@ -707,6 +660,99 @@ function createBluetoothBox() {
     // ]] usage of ccOS 'Bluetooth'
     return box;
 }
+function createTextToSpeechBox() {
+    const box = createBox('textToSpeech');
+    const voiceRecognizerTestBox = FormSet.createDiv({ id: 'textToSpeechTestBox', className: 'm5' });
+    const btnGetInstance = FormSet.createButton({ innerText: 'getInstance', className: 'm5' });
+    box.appendChild(btnGetInstance);
+    box.appendChild(voiceRecognizerTestBox);
+    const setAlert = FormSet.cbSetAlert(box);
+    // usage of ccOS 'textToSpeech'  [[
+    if (!ccOS.TextToSpeech) {
+        setAlert('ccOS.TextToSpeech undefined');
+    }
+    const getInstance = () => {
+        var _a;
+        setAlert('');
+        (_a = ccOS.TextToSpeech) === null || _a === void 0 ? void 0 : _a.getInstance({ _debugOptions: { logLevel: ccOS.Logger.TRACE, output: globalLogger } }).then(instance => {
+            btnGetInstance.disabled = true;
+            const properties = [
+                { name: 'state', type: 'text', hasSet: false, hasGet: false },
+                {
+                    name: 'voiceStyle', type: 'selection',
+                    selection: [
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_0,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_1,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_2,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_3,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_4,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_5,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_6,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_7,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_8,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_STYLE_9,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_DEFAULT,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_KR_KO_FEMALE,
+                        ccOS.TextToSpeech.VALUE_VOICE_STAYLE_KR_KO_MALE
+                    ]
+                },
+                {
+                    name: 'action', type: 'custom',
+                    createCustomSetBtn: (instance) => {
+                        const actionDivBox = FormSet.createDiv();
+                        const inputText = FormSet.createElement('input', Object.assign({
+                            type: 'text', className: 'text', value: '말씀하세요'
+                        }));
+                        const beepTypes = ccOS.TextToSpeech.COLLECTION_VALUE_BEEP_TYPE;
+                        const contentTypes = ccOS.TextToSpeech.COLLECTION_VALUE_CONTENT_TYPE;
+                        const radioBeepType = FormSet.createRadio(beepTypes, 'beepTypes');
+                        const radioContentType = FormSet.createRadio(contentTypes, 'contentTypes');
+                        const playEarconDivBox = FormSet.createDiv({ className: 'flexBox p2' });
+                        const btnPlayEarcon = FormSet.createButton({ innerText: 'playEarcon' });
+                        const speakDivBox = FormSet.createDiv({ className: 'flexBox p2' });
+                        const btnSpeak = FormSet.createButton({ innerText: 'speak' });
+                        const btnStop = FormSet.createButton({ innerText: 'stop' });
+                        playEarconDivBox.appendChild(btnPlayEarcon);
+                        playEarconDivBox.appendChild(radioBeepType);
+                        actionDivBox.appendChild(playEarconDivBox);
+                        speakDivBox.appendChild(btnSpeak);
+                        speakDivBox.appendChild(inputText);
+                        speakDivBox.appendChild(radioContentType);
+                        actionDivBox.appendChild(speakDivBox);
+                        actionDivBox.appendChild(btnStop);
+                        btnPlayEarcon.onclick = (evt) => {
+                            const checkedOpt = evt.target.parentElement.querySelector('input[type="radio"]:checked');
+                            const beepType = checkedOpt.value;
+                            instance && instance.playEarcon(beepType);
+                        };
+                        btnSpeak.onclick = (evt) => {
+                            const checkedOpt = evt.target.parentElement.querySelector('input[type="radio"]:checked');
+                            const contentType = checkedOpt.value;
+                            const inputEleText = evt.target.parentElement.querySelector('.text');
+                            const text = inputEleText.value;
+                            instance && instance.speak(text, contentType);
+                        };
+                        btnStop.onclick = () => { instance && instance.stop(); };
+                        return actionDivBox;
+                    }, hasGet: false
+                },
+            ];
+            new TestForm({
+                instance, properties, parentElement: box,
+                onDestroy: () => {
+                    btnGetInstance.disabled = false;
+                }
+            });
+        }).catch(e => {
+            log('failed to get instance:', e);
+            setAlert(e);
+        });
+    };
+    btnGetInstance.onclick = getInstance;
+    // getInstance();
+    // ]] usage of ccOS 'textToSpeech'
+    return box;
+}
 function createVoiceRecognizerBox() {
     const box = createBox('voiceRecognizer');
     const voiceRecognizerTestBox = FormSet.createDiv({ id: 'voiceRecognizerTestBox', className: 'm5' });
@@ -737,33 +783,16 @@ function createVoiceRecognizerBox() {
                     name: 'action', type: 'custom',
                     createCustomSetBtn: (instance) => {
                         const divBox = FormSet.createDiv();
-                        const inputText = FormSet.createElement('input', Object.assign({
-                            type: 'text', className: 'params', value: '{"config":{"audioZone":"front"},"promptArg":{"promptId":"kindly","args":["집","회사"],"guidanceType":"prompt","promptString":"말씀하세요","url":"","contentType":"vr"},"addArg":{"G2PDeviceId":"0001818-0000-1000-8000-00805f9b34fb","DetectedPosition":"driver"}}'
-                        }));
-                        const btnInit = FormSet.createButton({ innerText: 'init' });
                         const btnStart = FormSet.createButton({ innerText: 'start' });
-                        const btnPause = FormSet.createButton({ innerText: 'pause' });
-                        const btnResume = FormSet.createButton({ innerText: 'resume' });
                         const btnStop = FormSet.createButton({ innerText: 'stop' });
-                        divBox.appendChild(inputText);
-                        divBox.appendChild(btnInit);
                         divBox.appendChild(btnStart);
-                        divBox.appendChild(btnPause);
-                        divBox.appendChild(btnResume);
                         divBox.appendChild(btnStop);
-                        btnInit.onclick = (evt) => {
-                            const params = evt.target.parentElement.querySelector('.params');
-                            const paramsVal = JSON.parse(params.value);
-                            instance && instance.initVr(paramsVal.config);
+                        btnStart.onclick = () => {
+                            instance && instance.start();
                         };
-                        btnStart.onclick = (evt) => {
-                            const params = evt.target.parentElement.querySelector('.params');
-                            const paramsVal = JSON.parse(params.value);
-                            instance && instance.start(paramsVal.promptArg, paramsVal.addArg || {});
+                        btnStop.onclick = () => {
+                            instance && instance.stop();
                         };
-                        btnPause.onclick = () => { instance && instance.pause(); };
-                        btnResume.onclick = () => { instance && instance.resume(); };
-                        btnStop.onclick = () => { instance && instance.stop(); };
                         return divBox;
                     }, hasGet: false
                 },
@@ -782,75 +811,6 @@ function createVoiceRecognizerBox() {
     btnGetInstance.onclick = getInstance;
     // getInstance();
     // ]] usage of ccOS 'voiceRecognizer'
-    return box;
-}
-function createTextToSpeechBox() {
-    const box = createBox('textToSpeech');
-    const voiceRecognizerTestBox = FormSet.createDiv({ id: 'textToSpeechTestBox', className: 'm5' });
-    const btnGetInstance = FormSet.createButton({ innerText: 'getInstance', className: 'm5' });
-    box.appendChild(btnGetInstance);
-    box.appendChild(voiceRecognizerTestBox);
-    const setAlert = FormSet.cbSetAlert(box);
-    // usage of ccOS 'textToSpeech'  [[
-    if (!ccOS.TextToSpeech) {
-        setAlert('ccOS.TextToSpeech undefined');
-    }
-    const getInstance = () => {
-        var _a;
-        setAlert('');
-        (_a = ccOS.TextToSpeech) === null || _a === void 0 ? void 0 : _a.getInstance({ _debugOptions: { logLevel: ccOS.Logger.TRACE, output: globalLogger } }).then(instance => {
-            btnGetInstance.disabled = true;
-            const properties = [
-                { name: 'state', type: 'text', hasSet: false, hasGet: false },
-                {
-                    name: 'action', type: 'custom',
-                    createCustomSetBtn: (instance) => {
-                        const divBox = FormSet.createDiv();
-                        const inputText = FormSet.createElement('input', Object.assign({
-                            type: 'text', className: 'params', value: '{"params":{"promptId":"kindly","args":["집","회사"],"beepType":"start","promptString":"말씀하세요","url":"","contentType":"vr"}}'
-                        }));
-                        const btnPlayEarcon = FormSet.createButton({ innerText: 'playEarcon' });
-                        const btnSpeak = FormSet.createButton({ innerText: 'speak' });
-                        const btnPause = FormSet.createButton({ innerText: 'pause' });
-                        const btnResume = FormSet.createButton({ innerText: 'resume' });
-                        const btnStop = FormSet.createButton({ innerText: 'stop' });
-                        divBox.appendChild(inputText);
-                        divBox.appendChild(btnPlayEarcon);
-                        divBox.appendChild(btnSpeak);
-                        divBox.appendChild(btnPause);
-                        divBox.appendChild(btnResume);
-                        divBox.appendChild(btnStop);
-                        btnPlayEarcon.onclick = (evt) => {
-                            const params = evt.target.parentElement.querySelector('.params');
-                            const paramsVal = JSON.parse(params.value);
-                            instance && instance.playEarcon(paramsVal.params);
-                        };
-                        btnSpeak.onclick = (evt) => {
-                            const params = evt.target.parentElement.querySelector('.params');
-                            const paramsVal = JSON.parse(params.value);
-                            instance && instance.speak(paramsVal.params);
-                        };
-                        btnPause.onclick = () => { instance && instance.pause(); };
-                        btnResume.onclick = () => { instance && instance.resume(); };
-                        btnStop.onclick = () => { instance && instance.stop(); };
-                        return divBox;
-                    }, hasGet: false
-                },
-            ];
-            new TestForm({
-                instance, properties, parentElement: box,
-                onDestroy: () => {
-                    btnGetInstance.disabled = false;
-                }
-            });
-        }).catch(e => {
-            log('failed to get instance:', e);
-            setAlert(e);
-        });
-    };
-    btnGetInstance.onclick = getInstance;
-    // getInstance();
-    // ]] usage of ccOS 'textToSpeech'
     return box;
 }
 // function updateProp(prop: string, value: string, box: HTMLElement) {
