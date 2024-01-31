@@ -81,6 +81,14 @@ function createHeaderBox() {
     const setAlert = FormSet.cbSetAlert(toggleBox);
     if (!(ccOS === null || ccOS === void 0 ? void 0 : ccOS.version))
         setAlert('ccOS undefined');
+    const createRefreshBtn = () => {
+        const btn = FormSet.createButton({ className: 'm2 btnReload', innerText: 'reload' });
+        btn.onclick = (evt) => {
+            location.reload();
+        };
+        toggleBox.appendChild(btn);
+    };
+    createRefreshBtn();
     const createBtn = (name) => {
         const btn = FormSet.createButton({ className: 'm2 btnToggle', innerText: name });
         btn.onclick = (evt) => {
