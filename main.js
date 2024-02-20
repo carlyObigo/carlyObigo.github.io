@@ -720,6 +720,11 @@ function createTextToSpeechBox() {
                         const speakDivBox = FormSet.createDiv({ className: 'flexBox p2' });
                         const btnSpeak = FormSet.createButton({ innerText: 'speak' });
                         const btnStop = FormSet.createButton({ innerText: 'stop' });
+                        const btn_100 = FormSet.createButton({ innerText: '100자' });
+                        const btn_300 = FormSet.createButton({ innerText: '300자' });
+                        const btn_500 = FormSet.createButton({ innerText: '500자' });
+                        const btn_1000 = FormSet.createButton({ innerText: '1000자' });
+                        const btn_3000 = FormSet.createButton({ innerText: '3000자' });
                         playEarconDivBox.appendChild(btnPlayEarcon);
                         playEarconDivBox.appendChild(radioBeepType);
                         actionDivBox.appendChild(playEarconDivBox);
@@ -728,6 +733,11 @@ function createTextToSpeechBox() {
                         speakDivBox.appendChild(radioContentType);
                         actionDivBox.appendChild(speakDivBox);
                         actionDivBox.appendChild(btnStop);
+                        actionDivBox.appendChild(btn_100);
+                        actionDivBox.appendChild(btn_300);
+                        actionDivBox.appendChild(btn_500);
+                        actionDivBox.appendChild(btn_1000);
+                        actionDivBox.appendChild(btn_3000);
                         btnPlayEarcon.onclick = (evt) => {
                             const checkedOpt = evt.target.parentElement.querySelector('input[type="radio"]:checked');
                             const beepType = checkedOpt.value;
@@ -741,6 +751,46 @@ function createTextToSpeechBox() {
                             instance && instance.speak(text, contentType);
                         };
                         btnStop.onclick = () => { instance && instance.stop(); };
+                        const getTextLength = function (str) {
+                            let len = 0;
+                            for (let i = 0; i < str.length; i++) {
+                                if (escape(str.charAt(i)).length == 6) {
+                                    len++;
+                                }
+                                len++;
+                            }
+                            return len;
+                        };
+                        btn_100.onclick = () => {
+                            // 123 자
+                            const text = "In the quiet woods, sunlight filtered through leaves, creating a tranquil scene. Nature's beauty whispered in every rustle.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_300.onclick = () => {
+                            // 279 자
+                            const text = "As dawn broke, painting the sky in hues of pink and orange, Sarah stood at the water's edge. The gentle waves whispered tales of adventure, urging her to embark on a journey into the unknown. With a heart full of anticipation, she set sail, guided by the promise of new horizons.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_500.onclick = () => {
+                            // 615 자
+                            const text = "Amidst the urban chaos, Ella found solace in her rooftop garden. The city's symphony of sirens was replaced by the rustling leaves. Each potted plant held a story, a small rebellion against the concrete jungle. Ella, a modern alchemist, nurtured life in the heart of steel and glass. Her sanctuary became a haven for tired souls, a reminder that amidst the relentless pace, pockets of serenity could be cultivated. The rooftop garden, an oasis in the sky, reflected Ella's belief that even in the midst of the bustling city, one could find refuge and create a space where nature and humanity harmoniously coexisted.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_1000.onclick = () => {
+                            // 1012 자
+                            const text = "In the quaint village of Eldridge, nestled between rolling hills and meandering streams, lived a woman named Clara. Her days were woven with threads of simplicity and grace. Clara was known for her time-honored bakery, a cozy haven where the aroma of freshly baked bread wafted through the air. \nEach morning, the village awakened to the warm embrace of Clara's baked delights. The villagers, young and old, would gather at Clara's bakery, not just for the delicious pastries but for the sense of community she fostered. The bakery became a communal hub, where laughter echoed alongside the clinking of coffee cups. \nClara's love for baking was more than a skill; it was a way of connecting with people. Her recipes, passed down through generations, carried a legacy of tradition and comfort. The secret ingredient, she believed, was the genuine joy infused into each creation. \nOne day, a renowned food critic visited Eldridge. Clara's quaint bakery caught his attention, and he decided to sample her offerings.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_3000.onclick = () => {
+                            // 3004 자
+                            const text = "In the bustling city of New York, where the vibrant energy of the streets meets the towering skyscrapers that scrape the sky, a young artist named Emily found her inspiration. Born and raised in Brooklyn, Emily always had a deep connection to the city that never sleeps. Her days were filled with exploring hidden gems in Central Park, sketching the diverse faces in the subway, and capturing the essence of the city's pulse in her artwork.\n As an aspiring painter, Emily spent countless hours in her cozy studio apartment overlooking the Brooklyn Bridge. The walls adorned with her canvases, each telling a unique story of the city's spirit. Her favorite subject was the skyline at sunset, where the warm hues painted the buildings in a golden glow, creating a breathtaking backdrop for her creations.\n One fateful day, Emily received a letter inviting her to showcase her art in a prestigious gallery in Chelsea. The excitement and nervousness intertwined as she prepared her best pieces for the exhibition. This opportunity was a dream come true for Emily, a validation of her passion and dedication to her craft. As the opening night approached, the anticipation grew, and Emily couldn't help but reflect on her journey as an artist.\n The gallery buzzed with people from all walks of life on the night of the exhibition. Emily's heart raced as she watched attendees admire and analyze her paintings. Among the crowd, art enthusiasts, critics, and potential buyers mingled, creating an electric atmosphere. The positive feedback from viewers fueled Emily's confidence, and she found herself engaged in deep conversations about her artistic process and the inspiration behind each piece.\n The night turned into a turning point for Emily's career. Not only did she sell several paintings, but she also received commissions for custom pieces. The exposure from the gallery catapulted her into the spotlight, and soon, her artwork adorned the walls of art lovers around the world. Emily's story became an inspiration for aspiring artists, a testament to the transformative power of passion and perseverance.\n As Emily continued to evolve as an artist, she never forgot her roots in the vibrant city that ignited her creativity. Her paintings continued to reflect the ever-changing landscape of New York, capturing the essence of its people, culture, and architecture. In the midst of success, Emily remained humble, attributing her achievements to the city that shaped her identity as an artist.\n In the end, Emily's journey was not just about the strokes of her brush on canvas; it was a celebration of resilience, creativity, and the profound connection between an artist and the city that inspired her to reach new heights. And as the sun set over the New York skyline, Emily stood on her studio balcony, grateful for the journey that led her to this moment – a moment where her art spoke louder than words in the city that never ceased to inspire.Sunset painted the sky; waves whispered on the shore.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
                         return actionDivBox;
                     }, hasGet: false
                 },
