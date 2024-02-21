@@ -720,12 +720,16 @@ function createTextToSpeechBox() {
                         const speakDivBox = FormSet.createDiv({ className: 'flexBox p2' });
                         const btnSpeak = FormSet.createButton({ innerText: 'speak' });
                         const btnStop = FormSet.createButton({ innerText: 'stop' });
-                        const btn_100 = FormSet.createButton({ innerText: '100자' });
-                        const btn_300 = FormSet.createButton({ innerText: '300자' });
-                        const btn_500 = FormSet.createButton({ innerText: '500자' });
-                        const btn_1000 = FormSet.createButton({ innerText: '1000자' });
-                        const btn_2000 = FormSet.createButton({ innerText: '2000자' });
-                        const btn_3000 = FormSet.createButton({ innerText: '3000자' });
+                        const btn_100 = FormSet.createButton({ innerText: '100byte' });
+                        const btn_300 = FormSet.createButton({ innerText: '300byte' });
+                        const btn_500 = FormSet.createButton({ innerText: '500byte' });
+                        const btn_1000 = FormSet.createButton({ innerText: '1000byte' });
+                        const btn_2000 = FormSet.createButton({ innerText: '2000byte' });
+                        const btn_3000 = FormSet.createButton({ innerText: '3000byte' });
+                        const btn_ko1000 = FormSet.createButton({ innerText: '한글 1000byte' });
+                        const btn_ko1500 = FormSet.createButton({ innerText: '한글 1500byte' });
+                        const btn_ko2000 = FormSet.createButton({ innerText: '한글 2000byte' });
+                        const btn_ko3000 = FormSet.createButton({ innerText: '한글 3000byte' });
                         playEarconDivBox.appendChild(btnPlayEarcon);
                         playEarconDivBox.appendChild(radioBeepType);
                         actionDivBox.appendChild(playEarconDivBox);
@@ -740,6 +744,10 @@ function createTextToSpeechBox() {
                         actionDivBox.appendChild(btn_1000);
                         actionDivBox.appendChild(btn_2000);
                         actionDivBox.appendChild(btn_3000);
+                        actionDivBox.appendChild(btn_ko1000);
+                        actionDivBox.appendChild(btn_ko1500);
+                        actionDivBox.appendChild(btn_ko2000);
+                        actionDivBox.appendChild(btn_ko3000);
                         btnPlayEarcon.onclick = (evt) => {
                             const checkedOpt = evt.target.parentElement.querySelector('input[type="radio"]:checked');
                             const beepType = checkedOpt.value;
@@ -796,6 +804,30 @@ function createTextToSpeechBox() {
                         btn_3000.onclick = () => {
                             // 3004 자
                             const text = "In the bustling city of New York, where the vibrant energy of the streets meets the towering skyscrapers that scrape the sky, a young artist named Emily found her inspiration. Born and raised in Brooklyn, Emily always had a deep connection to the city that never sleeps. Her days were filled with exploring hidden gems in Central Park, sketching the diverse faces in the subway, and capturing the essence of the city's pulse in her artwork.\n As an aspiring painter, Emily spent countless hours in her cozy studio apartment overlooking the Brooklyn Bridge. The walls adorned with her canvases, each telling a unique story of the city's spirit. Her favorite subject was the skyline at sunset, where the warm hues painted the buildings in a golden glow, creating a breathtaking backdrop for her creations.\n One fateful day, Emily received a letter inviting her to showcase her art in a prestigious gallery in Chelsea. The excitement and nervousness intertwined as she prepared her best pieces for the exhibition. This opportunity was a dream come true for Emily, a validation of her passion and dedication to her craft. As the opening night approached, the anticipation grew, and Emily couldn't help but reflect on her journey as an artist.\n The gallery buzzed with people from all walks of life on the night of the exhibition. Emily's heart raced as she watched attendees admire and analyze her paintings. Among the crowd, art enthusiasts, critics, and potential buyers mingled, creating an electric atmosphere. The positive feedback from viewers fueled Emily's confidence, and she found herself engaged in deep conversations about her artistic process and the inspiration behind each piece.\n The night turned into a turning point for Emily's career. Not only did she sell several paintings, but she also received commissions for custom pieces. The exposure from the gallery catapulted her into the spotlight, and soon, her artwork adorned the walls of art lovers around the world. Emily's story became an inspiration for aspiring artists, a testament to the transformative power of passion and perseverance.\n As Emily continued to evolve as an artist, she never forgot her roots in the vibrant city that ignited her creativity. Her paintings continued to reflect the ever-changing landscape of New York, capturing the essence of its people, culture, and architecture. In the midst of success, Emily remained humble, attributing her achievements to the city that shaped her identity as an artist.\n In the end, Emily's journey was not just about the strokes of her brush on canvas; it was a celebration of resilience, creativity, and the profound connection between an artist and the city that inspired her to reach new heights. And as the sun set over the New York skyline, Emily stood on her studio balcony, grateful for the journey that led her to this moment – a moment where her art spoke louder than words in the city that never ceased to inspire.Sunset painted the sky; waves whispered on the shore.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko1000.onclick = () => {
+                            // 955 자
+                            const text = "한 평화로운 마을인 청산리에 살고 있는 여성 지은은, 오래 전부터 그리워하던 정원을 가꾸기로 결심했다. 지은은 어린 시절 할머니로부터 전해진 신비로운 식물들에 대한 이야기를 항상 기억하고 있었다. 그녀는 아침이면 마을의 사람들에게 신선한 채소를 나누어 주고, 오후에는 자신의 정원에서 평온한 시간을 보내곤 했다. 계절이 변할 때마다 정원의 풍경도 변화했다. 봄에는 색다른 풍경을 만들어내는 튤립과 수선화가 피어났고, 여름에는 장미와 부드러운 향기가 공중을 가득 메웠다. 가을에는 단풍이 내리면서 정원은 주홍과 주황빛으로 물들었고, 겨울에는 정원에 흰 눈이 내려 평화로운 풍경을 만들어냈다.어느 날, 지은은 정원에서 이상한 씨앗을 발견했다. 그 씨앗은 이국적인 빛을 띠고 있었고, 주위에 신비한 분위기가 느껴졌다. 호기심에 휩싸인 그녀는 특별한 구역에 그 씨앗을 심었고, 그것이 자라나면서 지은이 본 적이 없는 식물이 피어났다. 그 식물의 잎은 빛나는 무늬를 지니고 있었고, 꽃은 아름다운 색의 연속으로 피어났다.이 신비로운 식물의 소식은 빠르게 퍼져, 식물학자들과 과학자들이 찾아왔다";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko1500.onclick = () => {
+                            // 1513 자
+                            const text = "한 평화로운 마을인 청산리에 살고 있는 여성 지은은, 오래 전부터 그리워하던 정원을 가꾸기로 결심했다. 지은은 어린 시절 할머니로부터 전해진 신비로운 식물들에 대한 이야기를 항상 기억하고 있었다. 그녀는 아침이면 마을의 사람들에게 신선한 채소를 나누어 주고, 오후에는 자신의 정원에서 평온한 시간을 보내곤 했다. 계절이 변할 때마다 정원의 풍경도 변화했다. 봄에는 색다른 풍경을 만들어내는 튤립과 수선화가 피어났고, 여름에는 장미와 부드러운 향기가 공중을 가득 메웠다. 가을에는 단풍이 내리면서 정원은 주홍과 주황빛으로 물들었고, 겨울에는 정원에 흰 눈이 내려 평화로운 풍경을 만들어냈다.어느 날, 지은은 정원에서 이상한 씨앗을 발견했다. 그 씨앗은 이국적인 빛을 띠고 있었고, 주위에 신비한 분위기가 느껴졌다. 호기심에 휩싸인 그녀는 특별한 구역에 그 씨앗을 심었고, 그것이 자라나면서 지은이 본 적이 없는 식물이 피어났다. 그 식물의 잎은 빛나는 무늬를 지니고 있었고, 꽃은 아름다운 색의 연속으로 피어났다.이 신비로운 식물의 소식은 빠르게 퍼져, 식물학자들과 과학자들이 찾아왔다. 지은은 자신의 정원이 탐험과 발견의 중심지로 변하면서, 그 곳은 마치 작은 식물 연구소가 된 것처럼 번영했다. 그런 가운데, 지은은 정원을 보호하면서도 특별한 식물의 비밀을 풀고자 했다. 그녀는 전문가들과 협력하고 연구에 참여하여 자신이 발견한 식물의 기원을 파헤쳤다. 최종적으로, 그 식물의 기원은 알 수 없는 미스터리로 남았지만, 그것의 영향력은 부정할 수 없었다. 청산리는 한때는 조용한 곳이었지만, 이제는 자연 애호가들과 식물 연구자들이 모여드는 명소가 되었다. 지은의 정원은 전 세계의 예술 애호가들에게 알려지게 되었고, 그녀의 이야기는 열정과 끈질긴 노력이 어떻다.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko2000.onclick = () => {
+                            // 2057 자
+                            const text = "한 평화로운 마을인 청산리에 살고 있는 여성 지은은, 오래 전부터 그리워하던 정원을 가꾸기로 결심했다. 지은은 어린 시절 할머니로부터 전해진 신비로운 식물들에 대한 이야기를 항상 기억하고 있었다. 그녀는 아침이면 마을의 사람들에게 신선한 채소를 나누어 주고, 오후에는 자신의 정원에서 평온한 시간을 보내곤 했다. 계절이 변할 때마다 정원의 풍경도 변화했다. 봄에는 색다른 풍경을 만들어내는 튤립과 수선화가 피어났고, 여름에는 장미와 부드러운 향기가 공중을 가득 메웠다. 가을에는 단풍이 내리면서 정원은 주홍과 주황빛으로 물들었고, 겨울에는 정원에 흰 눈이 내려 평화로운 풍경을 만들어냈다.어느 날, 지은은 정원에서 이상한 씨앗을 발견했다. 그 씨앗은 이국적인 빛을 띠고 있었고, 주위에 신비한 분위기가 느껴졌다. 호기심에 휩싸인 그녀는 특별한 구역에 그 씨앗을 심었고, 그것이 자라나면서 지은이 본 적이 없는 식물이 피어났다. 그 식물의 잎은 빛나는 무늬를 지니고 있었고, 꽃은 아름다운 색의 연속으로 피어났다.이 신비로운 식물의 소식은 빠르게 퍼져, 식물학자들과 과학자들이 찾아왔다. 지은은 자신의 정원이 탐험과 발견의 중심지로 변하면서, 그 곳은 마치 작은 식물 연구소가 된 것처럼 번영했다. 그런 가운데, 지은은 정원을 보호하면서도 특별한 식물의 비밀을 풀고자 했다. 그녀는 전문가들과 협력하고 연구에 참여하여 자신이 발견한 식물의 기원을 파헤쳤다. 최종적으로, 그 식물의 기원은 알 수 없는 미스터리로 남았지만, 그것의 영향력은 부정할 수 없었다. 청산리는 한때는 조용한 곳이었지만, 이제는 자연 애호가들과 식물 연구자들이 모여드는 명소가 되었다. 지은의 정원은 전 세계의 예술 애호가들에게 알려지게 되었고, 그녀의 이야기는 열정과 끈질긴 노력이 어떻게 예술과 자연이 하나로 어우러져 새로운 높이를 창조할 수 있는지를 보여주는 훌륭한 사례가 되었다. 청산리의 정원은 지은이 예술과 자연의 조화를 찾아가는 여정의 일환으로 남았다.청산리의 정원은 지은이 예술과 자연의 조화를 찾아가는 여정의 일환으로 남았다. 그녀의 놀라운 발견은 마을을 넘어 예술과 과학의 교감지점이 되어, 작은 곳에서 큰 영향을 미치는 힘을 보여 주었다.청산리의 정원은 지은이 예술과 자연의 조화를 찾아가는 여정의 일환으로 남았다. 그녀의 놀라운 발견은 마을을 넘어 예술과 과학의 교감지점이 되어, 작은 곳에서 큰 영향을 미치는 힘을 보여 주었다.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko3000.onclick = () => {
+                            // 3003 자
+                            const text = "한 평화로운 마을인 청산리에 살고 있는 여성 지은은, 오래 전부터 그리워하던 정원을 가꾸기로 결심했다. 지은은 어린 시절 할머니로부터 전해진 신비로운 식물들에 대한 이야기를 항상 기억하고 있었다. 그녀는 아침이면 마을의 사람들에게 신선한 채소를 나누어 주고, 오후에는 자신의 정원에서 평온한 시간을 보내곤 했다. 계절이 변할 때마다 정원의 풍경도 변화했다. 봄에는 색다른 풍경을 만들어내는 튤립과 수선화가 피어났고, 여름에는 장미와 부드러운 향기가 공중을 가득 메웠다. 가을에는 단풍이 내리면서 정원은 주홍과 주황빛으로 물들었고, 겨울에는 정원에 흰 눈이 내려 평화로운 풍경을 만들어냈다.어느 날, 지은은 정원에서 이상한 씨앗을 발견했다. 그 씨앗은 이국적인 빛을 띠고 있었고, 주위에 신비한 분위기가 느껴졌다. 호기심에 휩싸인 그녀는 특별한 구역에 그 씨앗을 심었고, 그것이 자라나면서 지은이 본 적이 없는 식물이 피어났다. 그 식물의 잎은 빛나는 무늬를 지니고 있었고, 꽃은 아름다운 색의 연속으로 피어났다.이 신비로운 식물의 소식은 빠르게 퍼져, 식물학자들과 과학자들이 찾아왔다. 지은은 자신의 정원이 탐험과 발견의 중심지로 변하면서, 그 곳은 마치 작은 식물 연구소가 된 것처럼 번영했다. 그런 가운데, 지은은 정원을 보호하면서도 특별한 식물의 비밀을 풀고자 했다. 그녀는 전문가들과 협력하고 연구에 참여하여 자신이 발견한 식물의 기원을 파헤쳤다. 최종적으로, 그 식물의 기원은 알 수 없는 미스터리로 남았지만, 그것의 영향력은 부정할 수 없었다. 청산리는 한때는 조용한 곳이었지만, 이제는 자연 애호가들과 식물 연구자들이 모여드는 명소가 되었다. 지은의 정원은 전 세계의 예술 애호가들에게 알려지게 되었고, 그녀의 이야기는 열정과 끈질긴 노력이 어떻게 예술과 자연이 하나로 어우러져 새로운 높이를 창조할 수 있는지를 보여주는 훌륭한 사례가 되었다. 청산리의 정원은 지은이 예술과 자연의 조화를 찾아가는 여정의 일환으로 남았다. 한 평화로운 마을인 청산리에 살고 있는 여성 지은은, 오래 전부터 그리워하던 정원을 가꾸기로 결심했다. 지은은 어린 시절 할머니로부터 전해진 신비로운 식물들에 대한 이야기를 항상 기억하고 있었다. 그녀는 아침이면 마을의 사람들에게 신선한 채소를 나누어 주고, 오후에는 자신의 정원에서 평온한 시간을 보내곤 했다. 계절이 변할 때마다 정원의 풍경도 변화했다. 봄에는 색다른 풍경을 만들어내는 튤립과 수선화가 피어났고, 여름에는 장미와 부드러운 향기가 공중을 가득 메웠다. 가을에는 단풍이 내리면서 정원은 주홍과 주황빛으로 물들었고, 겨울에는 정원에 흰 눈이 내려 평화로운 풍경을 만들어냈다.어느 날, 지은은 정원에서 이상한 씨앗을 발견했다. 그 씨앗은 이국적인 빛을 띠고 있었고, 주위에 신비한 분위기가 느껴졌다. 호기심에 휩싸인 그녀는 특별한 구역에 그 씨앗을 심었고, 그것이 자라나면서 지은이 본 적이 없는 식물이 피어났다. 그 식물의 잎은 빛나는 무늬를 지니고 있었고, 꽃은 아름다운 색의 연속으로 피어났다.이 신비로운 식물의 소식은 빠르게 퍼져, 식물학자들과 과학자들이 찾아왔다. 지은은 자신의 정원이 탐험과 발견의 중심지로 변하면서, 그 곳은 마치 작은 식물 연구소가 된 것처럼 번영했다. 그런 가운데, 지은은 정원을 보호하면서도 특별한 식물의 비밀을 풀고자 했다. 그녀는 전문가들과 협력하고 연구에 참여하여 자신이 발견한 식물의 기원을 파헤쳤다. 최종적으로, 그 식물의 기원은 알 수 없는 미스터리로 남았지만, 그것의 영향력은 부정할 수 없었다. 그렇다.";
                             console.log(getTextLength(text));
                             instance && instance.speak(text);
                         };
