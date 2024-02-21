@@ -726,6 +726,9 @@ function createTextToSpeechBox() {
                         const btn_1000 = FormSet.createButton({ innerText: '1000byte' });
                         const btn_2000 = FormSet.createButton({ innerText: '2000byte' });
                         const btn_3000 = FormSet.createButton({ innerText: '3000byte' });
+                        const btn_ko100 = FormSet.createButton({ innerText: '한글 100byte' });
+                        const btn_ko300 = FormSet.createButton({ innerText: '한글 300byte' });
+                        const btn_ko500 = FormSet.createButton({ innerText: '한글 500byte' });
                         const btn_ko1000 = FormSet.createButton({ innerText: '한글 1000byte' });
                         const btn_ko1500 = FormSet.createButton({ innerText: '한글 1500byte' });
                         const btn_ko2000 = FormSet.createButton({ innerText: '한글 2000byte' });
@@ -744,6 +747,9 @@ function createTextToSpeechBox() {
                         actionDivBox.appendChild(btn_1000);
                         actionDivBox.appendChild(btn_2000);
                         actionDivBox.appendChild(btn_3000);
+                        actionDivBox.appendChild(btn_ko100);
+                        actionDivBox.appendChild(btn_ko300);
+                        actionDivBox.appendChild(btn_ko500);
                         actionDivBox.appendChild(btn_ko1000);
                         actionDivBox.appendChild(btn_ko1500);
                         actionDivBox.appendChild(btn_ko2000);
@@ -804,6 +810,24 @@ function createTextToSpeechBox() {
                         btn_3000.onclick = () => {
                             // 3004 자
                             const text = "In the bustling city of New York, where the vibrant energy of the streets meets the towering skyscrapers that scrape the sky, a young artist named Emily found her inspiration. Born and raised in Brooklyn, Emily always had a deep connection to the city that never sleeps. Her days were filled with exploring hidden gems in Central Park, sketching the diverse faces in the subway, and capturing the essence of the city's pulse in her artwork.\n As an aspiring painter, Emily spent countless hours in her cozy studio apartment overlooking the Brooklyn Bridge. The walls adorned with her canvases, each telling a unique story of the city's spirit. Her favorite subject was the skyline at sunset, where the warm hues painted the buildings in a golden glow, creating a breathtaking backdrop for her creations.\n One fateful day, Emily received a letter inviting her to showcase her art in a prestigious gallery in Chelsea. The excitement and nervousness intertwined as she prepared her best pieces for the exhibition. This opportunity was a dream come true for Emily, a validation of her passion and dedication to her craft. As the opening night approached, the anticipation grew, and Emily couldn't help but reflect on her journey as an artist.\n The gallery buzzed with people from all walks of life on the night of the exhibition. Emily's heart raced as she watched attendees admire and analyze her paintings. Among the crowd, art enthusiasts, critics, and potential buyers mingled, creating an electric atmosphere. The positive feedback from viewers fueled Emily's confidence, and she found herself engaged in deep conversations about her artistic process and the inspiration behind each piece.\n The night turned into a turning point for Emily's career. Not only did she sell several paintings, but she also received commissions for custom pieces. The exposure from the gallery catapulted her into the spotlight, and soon, her artwork adorned the walls of art lovers around the world. Emily's story became an inspiration for aspiring artists, a testament to the transformative power of passion and perseverance.\n As Emily continued to evolve as an artist, she never forgot her roots in the vibrant city that ignited her creativity. Her paintings continued to reflect the ever-changing landscape of New York, capturing the essence of its people, culture, and architecture. In the midst of success, Emily remained humble, attributing her achievements to the city that shaped her identity as an artist.\n In the end, Emily's journey was not just about the strokes of her brush on canvas; it was a celebration of resilience, creativity, and the profound connection between an artist and the city that inspired her to reach new heights. And as the sun set over the New York skyline, Emily stood on her studio balcony, grateful for the journey that led her to this moment – a moment where her art spoke louder than words in the city that never ceased to inspire.Sunset painted the sky; waves whispered on the shore.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko100.onclick = () => {
+                            // 100 자
+                            const text = "서울의 한복판에서, 세심한 예술가 지은은 작업실에서 창의적인 미술작품을 창조하고 있었다. 그렇다고 한다.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko300.onclick = () => {
+                            // 300 자
+                            const text = "서울의 한복판에서, 세심한 예술가 지은은 작업실에서 창의적인 미술작품을 창조하고 있었다. 그녀는 도시의 소음과 혼잡 속에서도 자신만의 평화로운 세계를 창조하며 예술에 대한 열정을 살렸다. 지은의 작품은 도시의 복잡성과 대조되는 아름다움을 담아내어 많은 이들에게 감동을 전하고 있었다. 그렇다고 했다고 한다.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_ko500.onclick = () => {
+                            // 503 자
+                            const text = "서울의 한복판에서, 세심한 예술가 지은은 작업실에서 창의적인 미술작품을 창조하고 있었다. 그녀는 도시의 소음과 혼잡 속에서도 자신만의 평화로운 세계를 창조하며 예술에 대한 열정을 살렸다. 지은의 작품은 도시의 복잡성과 대조되는 아름다움을 담아내어 많은 이들에게 감동을 전하고 있었다. 지은은 작품에 도시의 다양성을 반영하기 위해 노력했다. 서울의 거리와 골목, 그리고 다양한 인종과 문화를 담아내면서 도시 생활의 본질을 탐험했다. 그녀의 그림 속에는 각자의 이야기를 품은 도시 주민들의 다채로운 표정이 담겨 있었다.";
                             console.log(getTextLength(text));
                             instance && instance.speak(text);
                         };
