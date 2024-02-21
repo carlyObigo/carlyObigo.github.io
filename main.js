@@ -724,6 +724,7 @@ function createTextToSpeechBox() {
                         const btn_300 = FormSet.createButton({ innerText: '300자' });
                         const btn_500 = FormSet.createButton({ innerText: '500자' });
                         const btn_1000 = FormSet.createButton({ innerText: '1000자' });
+                        const btn_2000 = FormSet.createButton({ innerText: '2000자' });
                         const btn_3000 = FormSet.createButton({ innerText: '3000자' });
                         playEarconDivBox.appendChild(btnPlayEarcon);
                         playEarconDivBox.appendChild(radioBeepType);
@@ -737,6 +738,7 @@ function createTextToSpeechBox() {
                         actionDivBox.appendChild(btn_300);
                         actionDivBox.appendChild(btn_500);
                         actionDivBox.appendChild(btn_1000);
+                        actionDivBox.appendChild(btn_2000);
                         actionDivBox.appendChild(btn_3000);
                         btnPlayEarcon.onclick = (evt) => {
                             const checkedOpt = evt.target.parentElement.querySelector('input[type="radio"]:checked');
@@ -782,6 +784,12 @@ function createTextToSpeechBox() {
                         btn_1000.onclick = () => {
                             // 1012 자
                             const text = "In the quaint village of Eldridge, nestled between rolling hills and meandering streams, lived a woman named Clara. Her days were woven with threads of simplicity and grace. Clara was known for her time-honored bakery, a cozy haven where the aroma of freshly baked bread wafted through the air. \nEach morning, the village awakened to the warm embrace of Clara's baked delights. The villagers, young and old, would gather at Clara's bakery, not just for the delicious pastries but for the sense of community she fostered. The bakery became a communal hub, where laughter echoed alongside the clinking of coffee cups. \nClara's love for baking was more than a skill; it was a way of connecting with people. Her recipes, passed down through generations, carried a legacy of tradition and comfort. The secret ingredient, she believed, was the genuine joy infused into each creation. \nOne day, a renowned food critic visited Eldridge. Clara's quaint bakery caught his attention, and he decided to sample her offerings.";
+                            console.log(getTextLength(text));
+                            instance && instance.speak(text);
+                        };
+                        btn_2000.onclick = () => {
+                            // 2024 자
+                            const text = "In the heart of London, where history and modernity intertwine, lived a young architect named Oliver. His days were a blend of sketches and blueprints, as he navigated the city's architectural wonders. London, with its iconic landmarks and diverse neighborhoods, fueled Oliver's creative spirit.Oliver's latest project was a fusion of tradition and innovation—a contemporary art gallery nestled in the historic district of Kensington. The challenge was to seamlessly integrate modern design into the tapestry of Victorian architecture. As he sketched, visions of a structure that harmonized the old and the new danced across his imagination.Months of meticulous planning and collaboration followed. Oliver worked closely with local artisans, drawing inspiration from the intricate details of Kensington's Victorian mansions. The result was a masterpiece that paid homage to the past while embracing the future—a gallery with a façade adorned in ornate ironwork, yet with sleek glass panels that reflected the city's skyline.The opening night was a celebration of artistic vision and architectural brilliance. The gallery's walls adorned with avant-garde paintings, it became a beacon for art enthusiasts. The fusion of historical charm and contemporary elegance resonated with the city's soul, earning the gallery a place among London's cultural gems.Beyond the realm of architecture, Oliver found inspiration in London's cultural diversity. He frequented the vibrant markets of Camden, where eclectic stalls offered a kaleidoscope of global flavors. From the historic theaters of the West End to the serene parks like Hyde Park, every corner of the city contributed to Oliver's evolving artistic palette.As seasons changed, so did London's allure. Spring brought a carpet of blossoms in Regent's Park, while autumn painted Hampstead Heath in warm hues. Oliver's sketches mirrored the city's metamorphosis, capturing the essence of each neighborhood's unique character.London's river, the Thames, became a muse for Oliver.";
                             console.log(getTextLength(text));
                             instance && instance.speak(text);
                         };
