@@ -908,6 +908,10 @@ function createVoiceRecognizerBox() {
                     type: 'json', hasSet: false, hasGet: false
                 },
                 {
+                    name: 'errorString',
+                    type: 'text', hasSet: false, hasGet: true
+                },
+                {
                     name: 'action', type: 'custom',
                     createCustomSetBtn: (instance) => {
                         const divBox = FormSet.createDiv();
