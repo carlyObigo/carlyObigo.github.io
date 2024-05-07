@@ -1,15 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>WebAPI test</title>
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
-    <div id="ccOS"></div>
-    <div class="textwrapper" id="console">
-      <textarea id="consoleArea"></textarea>
-    </div>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Sample</title>
+</head>
+<body>
+    <button id="buttonA">버튼 A</button>
+    <button id="buttonB">버튼 B</button>
+    <script>
+        document.getElementById('buttonA').addEventListener('click', function() {
+            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV5BZ7DEKQM/0FXV5C445EJMH/index.html', 'iframeA');
+        });
+
+        document.getElementById('buttonB').addEventListener('click', function() {
+            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV5BZ7DEKQM/0FXV5C445EJMH/index.html', 'iframeB');
+        });
+
+        function createIframe(src, id) {
+			var ifr = document.getElementById(id);			
+			history.pushState({page: id}, "");
+			if (ifr) {
+				console.log('createIframe return: already exist iframe:', ifr);
+				return;
+			}
+            var iframe = document.createElement('iframe');
+			iframe.id = id;
+            iframe.src = src;
+            document.body.appendChild(iframe);
+        }
+		window.addEventListener('popstate', function(evt) {
+			console.log(evt);
+			var ifrA = document.getElementById('iframeA');
+			if (ifrA) {
+				ifrA.remove();
+				console.log('remove A', ifrA);
+			}
+		})
+    </script>
+</body>
 </html>
