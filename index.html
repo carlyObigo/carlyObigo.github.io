@@ -14,11 +14,11 @@ iframe.invisible {display:none;}
     <button id="buttonB">버튼 B</button>
     <script>
         document.getElementById('buttonA').addEventListener('click', function() {
-            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV5BZ7DEKQM/0FXV5C445EJMH/index.html', 'iframeA');
+            createIframe('./A.html', 'iframeA');
         });
 
         document.getElementById('buttonB').addEventListener('click', function() {
-            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV5BZ7DEKQM/0FXV5C445EJMH/index.html', 'iframeB');
+            createIframe('./B.html', 'iframeB');
         });
 
         function createIframe(src, id) {
