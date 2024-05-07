@@ -10,8 +10,10 @@ iframe.invisible {display:none;}
 </style>
 </head>
 <body>
-    <button id="buttonA">버튼 A</button>
-    <button id="buttonB">버튼 B</button>
+    <button id="buttonA">버튼 A: same origin, create/remove </button>
+    <button id="buttonB">버튼 B: same origin, create/visible/invisible </button>
+    <button id="buttonC">버튼 C: other origin, create/remove </button>
+    <button id="buttonD">버튼 D: other origin, create/visible/invisible</button>
     <script>
         document.getElementById('buttonA').addEventListener('click', function() {
             createIframe('./A.html', 'iframeA');
@@ -20,13 +22,20 @@ iframe.invisible {display:none;}
         document.getElementById('buttonB').addEventListener('click', function() {
             createIframe('./B.html', 'iframeB');
         });
+        document.getElementById('buttonC').addEventListener('click', function() {
+            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV6P7M9EKCS/0FXV6PDMHEKFB/index.html', 'iframeC');
+        });
+
+        document.getElementById('buttonD').addEventListener('click', function() {
+            createIframe('https://cdn.ogame.upluscar.co.kr/0FXV6P7M9EKCS/0FXV6PDMHEKFB/index.html', 'iframeD');
+        });
 
         function createIframe(src, id) {
 			var ifr = document.getElementById(id);			
 			history.pushState({page: id}, "");
 			if (ifr) {
 				console.log('createIframe return: already exist iframe:', ifr);
-				if (id === 'iframeB' && ifr.classList.contains('invisible')) {
+				if (['iframeB', 'iframeD'].includes(id) && ifr.classList.contains('invisible')) {
 					ifr.classList.toggle('invisible');
 				}
 				return;
@@ -42,10 +51,19 @@ iframe.invisible {display:none;}
 			if (ifrA) {
 				ifrA.remove();
 				console.log('remove A', ifrA);
-			}			
+			}		
+			var ifrC = document.getElementById('iframeC');
+			if (ifrC) {
+				ifrC.remove();
+				console.log('remove C', ifrA);
+			}		
 			var ifrB = document.getElementById('iframeB');
-			if (ifrB) {
+			if (ifrB && !ifrB.classList.contains('invisible')) {
 				ifrB.classList.toggle('invisible');
+			}		
+			var ifrD = document.getElementById('iframeD');
+			if (ifrD && !ifrD.classList.contains('invisible')) {
+				ifrD.classList.toggle('invisible');
 			}
 		})
     </script>
