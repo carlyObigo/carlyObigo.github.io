@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Button Sample</title>
+<style>
+iframe {display:block;}
+iframe.invisible {display:none;}
+</style>
 </head>
 <body>
     <button id="buttonA">버튼 A</button>
@@ -22,6 +26,9 @@
 			history.pushState({page: id}, "");
 			if (ifr) {
 				console.log('createIframe return: already exist iframe:', ifr);
+				if (id === 'iframeB' && ifr.classList.contains('invisible')) {
+					ifr.classList.toggle('invisible');
+				}
 				return;
 			}
             var iframe = document.createElement('iframe');
@@ -35,6 +42,10 @@
 			if (ifrA) {
 				ifrA.remove();
 				console.log('remove A', ifrA);
+			}			
+			var ifrB = document.getElementById('iframeB');
+			if (ifrB) {
+				ifrB.classList.toggle('invisible');
 			}
 		})
     </script>
